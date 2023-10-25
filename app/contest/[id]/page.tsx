@@ -9,10 +9,10 @@ import { PollStruct } from "@/app/types/poll";
 import ContestCard from "@/app/components/contest.card";
 import { ContestantStruct } from "@/app/types/contestant";
 import ContestantCard from "@/app/components/contestant.card";
-import { useRouter } from 'next/router'
 
-const Poll = () =>{
-    const router = useRouter()
+const Poll = ({ params }:{
+    params: { id: number };
+}) =>{
     const [contestants, setContestants] = useState<ContestantStruct[]>([])
     const [pollId,setPollId] = useState(0)
     const [visible, setVisible] = useState(false)
@@ -30,11 +30,7 @@ const Poll = () =>{
                 const signer = provider.getSigner();
                 const contractAddress = `${process.env.NEXT_PUBLIC_CONTRACT_ADDRESS}`;
                 const contractABI = abi.abi;
-                const pollId = router.query.id;
-                if (pollId !== undefined && pollId !== null && typeof pollId === 'string') {
-                    const pollIdInt = parseInt(pollId);
-                    setPollId(pollIdInt);
-                }
+                const pollId = params.id;
                 const contract = new ethers.Contract(contractAddress,contractABI, signer);
 
                 const poll: PollStruct = await contract.getPoll(pollId);
