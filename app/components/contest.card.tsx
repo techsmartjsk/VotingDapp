@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { useEthereumContext } from "../context/context.eth";
 import { ethers } from "ethers";
 import abi from '../contracts/DappVotes.json';
@@ -22,7 +22,7 @@ const ContestCard = ({
   const contractAddress = `${process.env.NEXT_PUBLIC_CONTRACT_ADDRESS}`;
   const contractABI = abi.abi;
 
-  const handleCreatePoll = async (e) => {
+  const handleCreatePoll = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (ethereum) {
       try {

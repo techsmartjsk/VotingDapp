@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import { useEthereumContext } from "../context/context.eth";
 import { toast } from "react-toastify";
 
+declare var window: any
+
 const Header: React.FC = () => {
   const { setConnectedAccount, connectedAccount, setEthereum, ethereum } = useEthereumContext()
   const handleAccounts = (accounts: string[]) => {
